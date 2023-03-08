@@ -4,9 +4,12 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Home from './components/Home';
 import Dashboard from "./pages/Dashboard";
+import LineChart from "./components/LineChart";
+import MyResponsiveLine from "./components/MyResponsiveLine";
+import { mockLineData } from "./data/mockLineData";
 
 function App() {
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode] = useMode(); 
 
   return (
     <ColorModeContext.Provider value={colorMode}>
