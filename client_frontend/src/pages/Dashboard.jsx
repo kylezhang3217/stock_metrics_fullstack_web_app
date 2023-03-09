@@ -1,36 +1,43 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {useForm} from "react-hook-form";
+import { useState, useEffect } from "react";
+
 import { tokens } from "../theme";
 import StatBox from "../components/StatBox";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
-import { mockAPIResponse as data} from "../data/mockAPIResponse";
+import Header from "../components/Header";
 import LineChart from "../components/LineChart";
+import SearchBarV2 from "../components/SearchBarV2";
+
+import { mockAPIResponse as data} from "../data/mockAPIResponse";
 import { mockLineData } from "../data/mockLineData";
-import MyResponsiveLine from "../components/MyResponsiveLine";
 import { mockTransactions } from "../data/mockTransactions";
 import { dummy_stock_price_over_time as ds } from "../data/dummyStockPriceOverTime";
 import { dummyrevenueovertime as dv } from "../data/dummyrevenueovertime";
 
-import Header from "../components/Header";
+import EmailIcon from "@mui/icons-material/Email";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import TrafficIcon from "@mui/icons-material/Traffic";
+import SearchIcon from "@mui/icons-material/Search";
+
 
 const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     {/* figure out how to parse the data input data points as own object */}
-    const data_input = data[0];
-
+    {/* const [data_input, setDataInput] = useState(null); */}
+    const data_input = data[0]; 
     return (
         <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your stock metrics dashboard" />
+        {data_input && <Header title="DASHBOARD" subtitle={data_input.id} />}
+        <SearchBarV2 />
       {/* ending box for header*/}
       </Box>
       
       {/* GRID & CHARTS */}
-      <Box
+      {data_input && <Box
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
@@ -166,7 +173,7 @@ const Dashboard = () => {
               Stock Price Values
             </Typography>
           </Box>
-          {ds.map((transaction, i) => (
+          {data_input.stock_price_over_time[0].data.map((transaction, i) => (
             <Box
               key={`${transaction.x}-${i}`}
               display="flex"
@@ -246,7 +253,7 @@ const Dashboard = () => {
               Revenue Values
             </Typography>
           </Box>
-          {dv.map((transaction, i) => (
+          {data_input.revenue_over_time[0].data.map((transaction, i) => (
             <Box
               key={`${transaction.x}-${i}`}
               display="flex"
@@ -278,7 +285,7 @@ const Dashboard = () => {
             </Box>
           ))}
         </Box>
-      </Box>
+      </Box>}
     </Box>
 
     

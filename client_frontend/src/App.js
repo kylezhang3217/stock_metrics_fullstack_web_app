@@ -2,11 +2,9 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Home from './components/Home';
+
+import SearchBarV2 from "./components/SearchBarV2";
 import Dashboard from "./pages/Dashboard";
-import LineChart from "./components/LineChart";
-import MyResponsiveLine from "./components/MyResponsiveLine";
-import { mockLineData } from "./data/mockLineData";
 
 function App() {
   const [theme, colorMode] = useMode(); 
